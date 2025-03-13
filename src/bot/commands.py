@@ -174,7 +174,7 @@ class ParaccoliCommands(commands.Cog):
                 await interaction.response.send_message(
                     embed=EmbedBuilder.error(
                         "⛔ チャンネルエラー",
-                        "このコマンドはhttps://discord.com/channels/1339125839954055230/1339846644547588176チャンネルでのみ使用できます"
+                        "このコマンドはデイリーボーナスチャンネルでのみ使用できます"
                     ),
                     ephemeral=True
                 )
@@ -285,7 +285,7 @@ class ParaccoliCommands(commands.Cog):
             await interaction.response.send_message(
                 embed=EmbedBuilder.error(
                     "⛔ チャンネルエラー",
-                    "このコマンドはhttps://discord.com/channels/1339125839954055230/1339128725463105536チャンネルでのみ使用できます"
+                    "このコマンドはマイニングチャンネルでのみ使用できます"
                 ),
                 ephemeral=True
             )
