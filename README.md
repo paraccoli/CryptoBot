@@ -92,39 +92,6 @@ python -m src.bot.main
 └── run_websocket.py         - 起動スクリプト
 ```
 
-## ⚠️ GitHubアップロード前の注意
-
-1. `.gitignore`ファイルを作成して機密情報を除外:
-
-```
-# 環境変数
-.env
-.env.*
-
-# ログファイル
-logs/
-*.log
-
-# 一時ファイル
-temp/
-__pycache__/
-*.py[cod]
-*$py.class
-
-# データベース
-*.db
-*.sqlite3
-
-# 必要に応じて機密データファイルも除外
-# data/permanent_flags.json
-# data/price_state.json
-```
-
-2. ソースコード内のハードコードされた個人情報を確認・削除:
-   - Discord IDs
-   - チャンネルURL
-   - APIキー
-   - パスワード
 
 ## 📄 ライセンス
 
