@@ -1,105 +1,146 @@
-# **📜 Paraccoli Crypto【PARC】 企画書**  
+# Paraccoli Crypto【PARC】
+
+Discordで動作する仮想通貨取引シミュレーションボット。実際の仮想通貨市場のように、マイニング、取引、価格変動を体験できます。
+
+## 📌 概要
+
+Paraccoli Crypto（PARC）は、Discord上で仮想通貨取引をシミュレーションできるボットです。ユーザーは仮想通貨「PARC」を取引しながら市場の変動を予測し、資産を増やすことを目指します。
+
+主な機能:
+- 🪙 仮想通貨「PARC」の売買シミュレーション
+- 💰 ウォレット管理と送金機能
+- ⛏️ マイニング機能でPARCを獲得
+- 🔮 AI搭載の価格予測ツール
+- 📊 詳細な統計情報とランキングシステム
+
+## 🚀 インストール方法
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourusername/ParaccoliCrypto.git
+cd ParaccoliCrypto
+
+# 必要パッケージのインストール
+pip install -r requirements.txt
+
+# データベースの初期設定
+alembic upgrade head
+```
+
+## ⚙️ 設定方法
+
+1. `.env`ファイルを作成し、以下の環境変数を設定してください:
+
+```
+DISCORD_TOKEN=your_discord_bot_token
+CLIENT_ID=your_discord_client_id
+CLIENT_SECRET=your_discord_client_secret
+DISCORD_REGISTER_CHANNEL_ID=channel_id_for_registration
+DISCORD_DAILY_CHANNEL_ID=channel_id_for_daily_bonus
+DISCORD_MINING_CHANNEL_ID=channel_id_for_mining
+DISCORD_LOG_CHANNEL_ID=channel_id_for_logs
+DISCORD_CHART_CHANNEL_ID=channel_id_for_charts
+DISCORD_RULES_CHANNEL_ID=channel_id_for_rules
+DISCORD_HELP_CHANNEL_ID=channel_id_for_help
+DISCORD_ADMIN_USER_ID=your_admin_user_id
+```
+
+2. 起動:
+
+```bash
+# Websocketサービスの起動
+python run_websocket.py
+
+# または直接モジュールとして実行
+python -m src
+```
+
+## 🔧 主な機能
+
+### 取引機能
+- `/buy [数量] [価格]` - PARCの購入 (成行/指値)
+- `/sell [数量] [価格]` - PARCの売却 (成行/指値)
+- `/market` - 市場の現在価格を確認
+- `/cancel [注文ID]` - 指値注文のキャンセル
+
+### 資産管理
+- `/wallet` - 現在のPARC/JPY残高を確認
+- `/history` - 取引履歴を確認
+- `/send [ユーザー] [数量]` - 他のユーザーにPARCを送金
+
+### 価格予測
+- `/predict [時間] [モデルタイプ]` - AIによる価格予測
+- `/alert [価格] [条件]` - 価格が指定範囲に達したら通知
+
+### マイニング
+- `/mine` - 24時間ごとにPARCを採掘
+- `/daily` - デイリーボーナスを受け取る
+- `/stats` - システム全体の統計情報を表示
+
+## 🗃️ ファイル構成
+
+```
+.
+├── alembic.ini              - Alembic設定ファイル
+├── migrations/              - データベーススキーマ管理
+├── data/                    - 保存データ
+│   ├── permanent_flags.json - 永続フラグ設定
+│   └── price_state.json     - 価格状態データ
+├── src/                     - ソースコード
+│   ├── bot/                 - ボット機能
+│   ├── database/            - データベース関連
+│   ├── models/              - データモデル
+│   ├── utils/               - ユーティリティ
+│   └── websocket/           - Websocket機能
+└── run_websocket.py         - 起動スクリプト
+```
+
+## ⚠️ GitHubアップロード前の注意
+
+1. `.gitignore`ファイルを作成して機密情報を除外:
+
+```
+# 環境変数
+.env
+.env.*
+
+# ログファイル
+logs/
+*.log
+
+# 一時ファイル
+temp/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# データベース
+*.db
+*.sqlite3
+
+# 必要に応じて機密データファイルも除外
+# data/permanent_flags.json
+# data/price_state.json
+```
+
+2. ソースコード内のハードコードされた個人情報を確認・削除:
+   - Discord IDs
+   - チャンネルURL
+   - APIキー
+   - パスワード
+
+## 📄 ライセンス
+
+LICENSE ファイルをご確認ください。
+
+## 👥 貢献方法
+
+1. このリポジトリをフォーク
+2. 機能ブランチを作成 (`git checkout -b amazing-feature`)
+3. 変更をコミット (`git commit -m 'Add amazing feature'`)
+4. ブランチにプッシュ (`git push origin amazing-feature`)
+5. Pull Requestを作成
 
 ---
-
-## **📌 概要**  
-**Paraccoli Crypto【PARC】** は、**仮想通貨取引をDiscord上でシミュレーション** できるシステムです。  
-ユーザーは **仮想通貨「PARC」** を取引しながら市場の変動を予測し、資産を増やすことを目指します。  
-また、**AIによる価格予測・マイニング・ウォレット機能・送金機能** など、実際の仮想通貨市場と同様の仕組みを導入しています。  
-
----
-
-## **🎯 目的**  
-### **1. 仮想通貨市場の学習**
-- **リアルな取引体験** を提供し、仮想通貨市場の仕組みを学べる  
-- **価格の変動を予測するAIモデル** を活用し、データ分析の理解を深める  
-
-### **2. 仮想経済圏の構築**
-- **PARCを利用した仮想経済を形成**  
-- **ユーザー同士の売買・投資活動を活性化**  
-
-### **3. ゲーム性の導入**
-- **ランキング・実績システム** により競争要素を強化  
-- **ギルドシステム（Paraccoli Guildとの連携）** を活用し、経済の発展を促進  
-
----
-
-## **🛠 実装計画**  
-### **💻 開発環境**
-- **サーバー:** Ubuntu Server 22.04 (さくらVPS)  
-- **バックエンド:** FastAPI (Python)  
-- **データベース:** MySQL / MongoDB  
-- **フロントエンド:** React (Vite + TailwindCSS)  
-- **Discord Bot:** Python (discord.py)  
-- **認証:** Discord OAuth2  
-
-### **📝 使用技術スタック**
-| 分類         | 技術 |
-|-------------|-----------------------------|
-| 言語        | Python, JavaScript |
-| フレームワーク | FastAPI, React, Vite |
-| データベース | MySQL, MongoDB |
-| サーバー    | Nginx, Gunicorn |
-| クラウド    | さくらVPS |
-| バージョン管理 | GitHub |
-
----
-
-## **📌 機能一覧**
-### **1. 取引機能**
-| コマンド  | 説明 |
-|----------|------|
-| `/buy [数量] [価格]` | PARCの購入 (成行/指値) |
-| `/sell [数量] [価格]` | PARCの売却 (成行/指値) |
-| `/market` | 市場の現在価格を確認 |
-| `/cancel [注文ID]` | 指値注文のキャンセル |
-
----
-
-### **2. 資産管理**
-| コマンド  | 説明 |
-|----------|------|
-| `/wallet` | 現在のPARC/JPY残高を確認 |
-| `/history` | 取引履歴を確認 |
-| `/send [ユーザー] [数量]` | 他のユーザーにPARCを送金 |
-
----
-
-### **3. 価格予測**
-| コマンド  | 説明 |
-|----------|------|
-| `/predict [時間] [モデルタイプ]` | AIによる価格予測 |
-| `/alert [価格] [条件]` | 価格が指定範囲に達したら通知 |
-
----
-
-### **4. マイニング**
-| コマンド  | 説明 |
-|----------|------|
-| `/mine` | 24時間ごとにPARCを採掘 |
-| `/stats` | システム全体のマイニング状況を表示 |
-
----
-
-### **5. 統計情報**
-| コマンド  | 説明 |
-|----------|------|
-| `/stats` | 市場の統計データを確認 |
-| `/leaderboard` | 資産ランキングを表示 |
-
----
-
-## **🔮 今後の計画**
-✅ **取引システムの安定化**  
-✅ **AI価格予測の精度向上**  
-✅ **マイニング報酬の調整**  
-✅ **ユーザー獲得のためのマーケティング (SEO & SNSプロモーション)**  
-
----
-
-
-## **📌 まとめ**
-Paraccoli Crypto は、**仮想通貨市場を学びつつ、楽しみながら経済活動ができるプラットフォーム** を目指します。  
-今後も機能を拡張し、**実際の経済圏に近い仮想市場を形成** していきます。  
 
 🚀 **Let's trade and grow together!** 🚀
