@@ -17,8 +17,8 @@ Paraccoli Crypto（PARC）は、Discord上で仮想通貨取引をシミュレ�
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/yourusername/ParaccoliCrypto.git
-cd ParaccoliCrypto
+git clone https://github.com/paraccoli/CryptoBot.git
+cd CryptoBot
 
 # 必要パッケージのインストール
 pip install -r requirements.txt
@@ -48,11 +48,8 @@ DISCORD_ADMIN_USER_ID=your_admin_user_id
 2. 起動:
 
 ```bash
-# Websocketサービスの起動
-python run_websocket.py
-
-# または直接モジュールとして実行
-python -m src
+# 直接モジュールとして実行
+python -m src.bot.main
 ```
 
 ## 🔧 主な機能
